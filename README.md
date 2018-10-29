@@ -8,7 +8,7 @@ Główne funkcjonalności:
  - generowanie raportów na temat rentowności firmy
  - automatyczne zarządzanie trasą dostaw, rozwiązujące problemy najkrótszej ścieżki i takie tam
  
- ![alt text](https://raw.githubusercontent.com/julian4programmers/bellaputanesca/master/design.png)
+ ![alt text](https://raw.githubusercontent.com/julian4programmers/bellaputanesca/master/design2.png)
  
  Ponadto:  
  C - Client
