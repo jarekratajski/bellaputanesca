@@ -31,7 +31,7 @@ public class ClientMapper implements GenericMapper<Client, ClientDto> {
 		}
 		AddressDto contactAddressDto = addressMapper.sourceToDto(client.getContactAddress());
 		AddressDto registerAddressDto = addressMapper.sourceToDto(client.getRegisterAddress());
-		UserDto userDto = userMapper.sourceToDto(Optional.ofNullable(client.getUser()).orElse(new User()));
+		UserDto userDto = userMapper.sourceToDto(client.getUser());
 
 		
 		ClientDto clientDto = new ClientDto();
@@ -52,7 +52,7 @@ public class ClientMapper implements GenericMapper<Client, ClientDto> {
 		}
 		Address contactAddress = addressMapper.dtoToNewSource(clientDto.getContactAddress());
 		Address registerAddress = addressMapper.dtoToNewSource(clientDto.getRegisterAddress());
-		User userDto = Optional.ofNullable(userMapper.dtoToNewSource(clientDto.getUser())).orElse(new User());
+		User userDto = userMapper.dtoToNewSource(clientDto.getUser());
 		
 		Client client = new Client(clientDto.getNip());
 		client.setCompanyName(clientDto.getCompanyName());
@@ -73,7 +73,7 @@ public class ClientMapper implements GenericMapper<Client, ClientDto> {
 		}
 		Address contactAddress = addressMapper.dtoToUpdatedSource(client.getContactAddress(), clientDto.getContactAddress());
 		Address registerAddress = addressMapper.dtoToUpdatedSource(client.getRegisterAddress(), clientDto.getRegisterAddress());
-		User user = Optional.ofNullable(userMapper.dtoToUpdatedSource(client.getUser(), clientDto.getUser())).orElse(new User());
+		User user = userMapper.dtoToUpdatedSource(client.getUser(), clientDto.getUser());
 		
 		client.setCompanyName(clientDto.getCompanyName());
 		client.setUser(user);
