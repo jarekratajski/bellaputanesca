@@ -1,4 +1,4 @@
-﻿# bellaputanesca
+﻿# bella
 
 Aplikacja do zarządzania małą firmą transportową, gdzie kierowcy zasuwają wielkimi TIRami.
 
