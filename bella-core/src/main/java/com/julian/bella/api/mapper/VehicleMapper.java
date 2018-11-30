@@ -1,9 +1,9 @@
 package com.julian.bella.api.mapper;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.julian.bella.api.dto.DriverDto;
+import com.julian.bella.api.dto.EmployeeDto;
 import com.julian.bella.api.dto.VehicleDto;
 import com.julian.bella.domain.Driver;
 import com.julian.bella.domain.Vehicle;
@@ -13,9 +13,9 @@ public class VehicleMapper implements GenericMapper<Vehicle, VehicleDto> {
 
 	DriverMapper driverMapper;
 
-	@Autowired
-	public VehicleMapper(DriverMapper driverMapper) {
-		this.driverMapper = driverMapper;
+	public VehicleMapper() {
+		UserMapper userMapper = new UserMapper();
+		this.driverMapper = new DriverMapper(userMapper);
 	}
 
 	@Override
@@ -23,7 +23,8 @@ public class VehicleMapper implements GenericMapper<Vehicle, VehicleDto> {
 		if(source == null) {
 			return null;
 		}
-		DriverDto drvDto = driverMapper.sourceToDto(source.getDriver());
+		EmployeeDto e = driverMapper.sourceToDto(source.getDriver());
+		DriverDto drvDto = (DriverDto) e;
 		VehicleDto dto = new VehicleDto();
 
 		dto.setCapacityKg(source.getCapacity())
@@ -40,7 +41,7 @@ public class VehicleMapper implements GenericMapper<Vehicle, VehicleDto> {
 		if(dto == null) {
 			return null;
 		}
-		Driver drv = driverMapper.dtoToNewSource(dto.getDriverDto());
+		Driver drv = (Driver) driverMapper.dtoToNewSource(dto.getDriverDto());
 		Vehicle v = new Vehicle(dto.getVin());
 		v.setDriver(drv);
 		v.setCapacity(dto.getCapacityKg());
@@ -56,7 +57,7 @@ public class VehicleMapper implements GenericMapper<Vehicle, VehicleDto> {
 		if(source == null) {
 			return dtoToNewSource(dto);
 		}
-		Driver drv = driverMapper.dtoToUpdatedSource(source.getDriver(), dto.getDriverDto());
+		Driver drv = (Driver) driverMapper.dtoToUpdatedSource(source.getDriver(), dto.getDriverDto());
 		source.setDriver(drv);
 		source.setCapacity(dto.getCapacityKg());
 		source.setPurchaseDate(dto.getPurchaseDate());

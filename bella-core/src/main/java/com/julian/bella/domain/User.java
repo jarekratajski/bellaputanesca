@@ -21,7 +21,7 @@ public class User {
 	
 	@NotBlank
 	@Column(unique=true)
-	private String login;
+	private String login; //encrpt
 	
 	@Email
 	private String email;

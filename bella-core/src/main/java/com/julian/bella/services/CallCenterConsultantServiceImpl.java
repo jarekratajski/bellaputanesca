@@ -32,25 +32,25 @@ public class CallCenterConsultantServiceImpl implements CallCenterConsultantServ
 
 	@Override
 	public CallCenterConsultantDto getCallCenterConsultant(Long id) {
-		return cccMapper.sourceToDto(cccRepo.findById(id).orElseThrow(ResourceNotFoundException::new));
+		return (CallCenterConsultantDto) cccMapper.sourceToDto(cccRepo.findById(id).orElseThrow(ResourceNotFoundException::new));
 	}
 
 	@Override
 	public CallCenterConsultantDto saveCallCenterConsultant(CallCenterConsultant ccc) {
 		ccc = cccRepo.save(ccc);
-		return cccMapper.sourceToDto(ccc);
+		return (CallCenterConsultantDto) cccMapper.sourceToDto(ccc);
 	}
 
 	@Override
 	public CallCenterConsultantDto createNewCallCenterConsultant(CallCenterConsultantDto cccDto) {
-		CallCenterConsultant ccc = cccMapper.dtoToNewSource(cccDto);
+		CallCenterConsultant ccc = (CallCenterConsultant) cccMapper.dtoToNewSource(cccDto);
 		return this.saveCallCenterConsultant(ccc);
 	}
 
 	@Override
 	public CallCenterConsultantDto updateCallCenterConsultant(Long id, CallCenterConsultantDto cccDto) {
 		CallCenterConsultant oldCcc = cccRepo.findById(id).orElseThrow(ResourceNotFoundException::new);
-		CallCenterConsultant newCcc = cccMapper.dtoToUpdatedSource(oldCcc, cccDto);
+		CallCenterConsultant newCcc = (CallCenterConsultant) cccMapper.dtoToUpdatedSource(oldCcc, cccDto);
 		return this.saveCallCenterConsultant(newCcc);
 	}
 

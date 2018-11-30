@@ -32,26 +32,25 @@ public class ShipperServiceImpl implements ShipperService {
 
 	@Override
 	public ShipperDto getShipper(Long id) {
-		return mapper.sourceToDto(repo.findById(id).orElseThrow(ResourceNotFoundException::new));
+		return (ShipperDto) mapper.sourceToDto(repo.findById(id).orElseThrow(ResourceNotFoundException::new));
 	}
 
 	@Override
 	public ShipperDto saveShipper(Shipper shipper) {
 		shipper = repo.save(shipper);
-		return mapper.sourceToDto(shipper);
+		return (ShipperDto) mapper.sourceToDto(shipper);
 	}
 
 	@Override
 	public ShipperDto createNewShipper(ShipperDto dto) {
-		Shipper s = mapper.dtoToNewSource(dto);
+		Shipper s = (Shipper) mapper.dtoToNewSource(dto);
 		return this.saveShipper(s);
 	}
 
 	@Override
 	public ShipperDto updateShipper(Long id, ShipperDto dto) {
 		Shipper oldS = repo.findById(id).orElseThrow(ResourceNotFoundException::new);
-		Shipper newS = mapper.dtoToUpdatedSource(oldS, dto);
+		Shipper newS = (Shipper) mapper.dtoToUpdatedSource(oldS, dto);
 		return this.saveShipper(newS);
 	}
-
 }

@@ -1,24 +1,30 @@
 package com.julian.bella.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
-@Table(name = "EMPL_DRIVER")
 public class Driver extends Employee {
 
-	
-	public String n;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	protected Driver() {
 		super();
 	}
-	
+
 	public Driver(String pesel) {
 		super(pesel);
 	}
-	
+
 	public Driver(String pesel, String firstName, String secondName, boolean isActive) {
 		super(pesel, firstName, secondName, isActive);
+	}
+
+	public Long getId() {
+		return id;
 	}
 }

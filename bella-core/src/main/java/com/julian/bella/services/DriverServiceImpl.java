@@ -35,18 +35,18 @@ public class DriverServiceImpl implements DriverService {
 
 	@Override
 	public DriverDto getDriver(Long id) {
-		return driverMapper.sourceToDto(driverRepo.findById(id).orElseThrow(ResourceNotFoundException::new));
+		return (DriverDto) driverMapper.sourceToDto(driverRepo.findById(id).orElseThrow(ResourceNotFoundException::new));
 	}
 
 	@Override
 	public DriverDto saveDriver(Driver driver) {
 		driver = driverRepo.save(driver);
-		return driverMapper.sourceToDto(driver);
+		return (DriverDto) driverMapper.sourceToDto(driver);
 	}
 
 	@Override
 	public DriverDto createNewDriver(DriverDto driverDto) {
-		Driver drv = driverMapper.dtoToNewSource(driverDto);
+		Driver drv = (Driver) driverMapper.dtoToNewSource(driverDto);
 		return this.saveDriver(drv);
 	}
 
@@ -54,14 +54,14 @@ public class DriverServiceImpl implements DriverService {
 	public DriverDto createNewDriverForUser(Long userId, DriverDto driverDto) {
 		UserDto userDto = userService.getUser(userId);
 		driverDto.setUserDto(userDto);
-		Driver drv = driverMapper.dtoToNewSource(driverDto);
+		Driver drv = (Driver) driverMapper.dtoToNewSource(driverDto);
 		return this.saveDriver(drv);
 	}
 
 	@Override
 	public DriverDto updateDriver(Long id, DriverDto driverDto) {
 		Driver oldDrv = driverRepo.findById(id).orElseThrow(ResourceNotFoundException::new);
-		Driver newDrv = driverMapper.dtoToUpdatedSource(oldDrv, driverDto);
+		Driver newDrv = (Driver) driverMapper.dtoToUpdatedSource(oldDrv, driverDto);
 		return this.saveDriver(newDrv);
 	}
 

@@ -1,6 +1,7 @@
 package com.julian.bella.api.mapper;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -74,5 +75,10 @@ public class ClientMapperTest {
 		// then
 		assertEquals(newCompanyName, sourceFromDto.getCompanyName());
 		assertEquals(newLogin, sourceFromDto.getUser().getLogin());
+	}
+	
+	@Test
+	public void testDtoToUpdatedSource() {
+		fail();
 	}
 }

@@ -7,4 +7,5 @@ public class ShipperListDto extends GenericListDto<ShipperDto> {
 	public ShipperListDto(List<ShipperDto> list) {
 		super(list);
 	}
+	
 }
