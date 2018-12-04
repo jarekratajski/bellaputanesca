@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 public abstract class EmployeeDto {
 	
+	private Long id;
 	private boolean isActive;
 	private String pesel;
 	private String firstName;
@@ -12,6 +13,15 @@ public abstract class EmployeeDto {
 	@JsonUnwrapped
 	private UserDto userDto;
 
+	public Long getId() {
+		return id;
+	}
+	
+	public EmployeeDto setId(Long id) {
+		this.id = id;
+		return this;
+	}
+	
 	public boolean isActive() {
 		return isActive;
 	}

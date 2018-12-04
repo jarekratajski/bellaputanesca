@@ -8,6 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.julian.bella.api.dto.DriverDto;
+import com.julian.bella.api.mapper.DriverMapper;
+import com.julian.bella.api.mapper.GenericMapper;
+import com.julian.bella.api.mapper.UserMapper;
 import com.julian.bella.domain.Driver;
 import com.julian.bella.rodo.HashMD5;
 

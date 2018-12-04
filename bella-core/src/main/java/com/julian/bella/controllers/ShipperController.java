@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.julian.bella.api.dto.ShipperDto;
 import com.julian.bella.api.dto.ShipperListDto;
 import com.julian.bella.services.ShipperService;
-import com.julian.bella.services.UserService;
 
 
 @RestController
@@ -22,12 +21,10 @@ import com.julian.bella.services.UserService;
 public class ShipperController {
 
 	private final ShipperService cccService;
-	private final UserService userService;
 	
 	@Autowired
-	public ShipperController(ShipperService service, UserService userService) {
+	public ShipperController(ShipperService service) {
 		this.cccService = service;
-		this.userService = userService;
 	}
 	
 	@GetMapping
@@ -45,7 +42,6 @@ public class ShipperController {
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ShipperDto createNewShipper(@RequestBody ShipperDto cccDto) {
-		userService.createNewUser(cccDto.getUserDto());
 		return cccService.createNewShipper(cccDto);
 	}
 	

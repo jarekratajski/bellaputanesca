@@ -27,7 +27,8 @@ public class CallCenterConsultantMapper implements GenericMapper<CallCenterConsu
 
 		CallCenterConsultantDto dto = new CallCenterConsultantDto();
 		
-		dto.setActive(source.isActive())
+		dto.setId(source.getId())
+			.setActive(source.isActive())
 			.setPesel(source.peselEncrypted)
 			.setFirstName(source.getFirstName())
 			.setLastName(source.getLastName())

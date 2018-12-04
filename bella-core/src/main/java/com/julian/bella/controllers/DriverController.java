@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.julian.bella.api.dto.DriverDto;
 import com.julian.bella.api.dto.DriverListDto;
 import com.julian.bella.services.DriverService;
-import com.julian.bella.services.UserService;
 
 
 @RestController
@@ -22,12 +21,10 @@ import com.julian.bella.services.UserService;
 public class DriverController {
 
 	private final DriverService driverService;
-	private final UserService userService;
-	
+
 	@Autowired
-	public DriverController(DriverService service, UserService userService) {
+	public DriverController(DriverService service) {
 		this.driverService = service;
-		this.userService = userService;
 	}
 	
 	@GetMapping
@@ -45,10 +42,9 @@ public class DriverController {
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public DriverDto createNewDriver(@RequestBody DriverDto driverDto) {
-		userService.createNewUser(driverDto.getUserDto());
 		return driverService.createNewDriver(driverDto);
 	}
-	
+
 	@PutMapping("/id={id}")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public DriverDto updateDriver(@PathVariable Long id, @RequestBody DriverDto driverDto) {

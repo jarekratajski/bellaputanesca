@@ -17,11 +17,14 @@ public class CallCenterConsultantServiceImpl implements CallCenterConsultantServ
 
 	CallCenterConsultantRepo cccRepo;
 	CallCenterConsultantMapper cccMapper;
+	UserService userService;
 
 	@Autowired
-	public CallCenterConsultantServiceImpl(CallCenterConsultantRepo repo, CallCenterConsultantMapper mapper) {
+	public CallCenterConsultantServiceImpl(CallCenterConsultantRepo repo, CallCenterConsultantMapper mapper,
+			UserService userService) {
 		this.cccRepo = repo;
 		this.cccMapper = mapper;
+		this.userService = userService;
 	}
 
 	@Override
@@ -43,6 +46,7 @@ public class CallCenterConsultantServiceImpl implements CallCenterConsultantServ
 
 	@Override
 	public CallCenterConsultantDto createNewCallCenterConsultant(CallCenterConsultantDto cccDto) {
+		cccDto.setUserDto(userService.getUserByLogin(cccDto.getUserDto().getLogin()));
 		CallCenterConsultant ccc = (CallCenterConsultant) cccMapper.dtoToNewSource(cccDto);
 		return this.saveCallCenterConsultant(ccc);
 	}

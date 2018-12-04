@@ -25,6 +25,7 @@ public class UserMapper implements GenericMapper<User, UserDto> {
 		}
 		User user = new User();
 		user.setLogin(dto.getLogin());
+		user.setEmail(dto.getEmail());
 		return user;
 	
 	}
@@ -38,6 +39,7 @@ public class UserMapper implements GenericMapper<User, UserDto> {
 			return null;
 		}
 		source.setLogin(dto.getLogin());
+		source.setEmail(dto.getEmail());
 		return source;
 	}
 

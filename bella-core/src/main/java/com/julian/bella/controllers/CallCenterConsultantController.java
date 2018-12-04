@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.julian.bella.api.dto.CallCenterConsultantDto;
 import com.julian.bella.api.dto.CallCenterConsultantListDto;
 import com.julian.bella.services.CallCenterConsultantService;
-import com.julian.bella.services.UserService;
 
 
 @RestController
@@ -22,12 +21,10 @@ import com.julian.bella.services.UserService;
 public class CallCenterConsultantController {
 
 	private final CallCenterConsultantService cccService;
-	private final UserService userService;
 	
 	@Autowired
-	public CallCenterConsultantController(CallCenterConsultantService service, UserService userService) {
+	public CallCenterConsultantController(CallCenterConsultantService service) {
 		this.cccService = service;
-		this.userService = userService;
 	}
 	
 	@GetMapping
@@ -45,7 +42,6 @@ public class CallCenterConsultantController {
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public CallCenterConsultantDto createNewCallCenterConsultant(@RequestBody CallCenterConsultantDto cccDto) {
-		userService.createNewUser(cccDto.getUserDto());
 		return cccService.createNewCallCenterConsultant(cccDto);
 	}
 	

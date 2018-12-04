@@ -76,12 +76,13 @@ public class UserMapperTest {
 		
 		UserDto dto = new UserDto();
 		dto.setLogin(login);
+		dto.setEmail("newEmail@new.com");
 		
 		// when
 		User newUser = mapper.dtoToUpdatedSource(oldUser, dto);
 		
 		// then
 		assertEquals(login, newUser.getLogin());
-		assertEquals(email, newUser.getEmail());
+		assertEquals("newEmail@new.com", newUser.getEmail());
 	}
 }

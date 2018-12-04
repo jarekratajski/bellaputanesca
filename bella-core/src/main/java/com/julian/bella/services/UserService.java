@@ -19,4 +19,5 @@ public interface UserService {
 
 	UserDto updateUser(Long id, UserDto userDto);
 
+	UserDto getUserByLogin(String login);
 }

@@ -57,4 +57,9 @@ public class UserServiceImpl implements UserService {
 		User newUser = userMapper.dtoToUpdatedSource(oldUser, userDto);
 		return this.saveUser(newUser);
 	}
+
+	@Override
+	public UserDto getUserByLogin(String login) {
+		return userMapper.sourceToDto(userRepo.findByLogin(login));
+	}
 }

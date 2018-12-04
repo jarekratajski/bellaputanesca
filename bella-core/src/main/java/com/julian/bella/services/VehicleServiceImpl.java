@@ -16,10 +16,12 @@ public class VehicleServiceImpl implements VehicleService {
 
 	VehicleRepo repo;
 	VehicleMapper mapper;
+	DriverService drvService;
 	
-	public VehicleServiceImpl(VehicleRepo repo, VehicleMapper mapper) {
+	public VehicleServiceImpl(VehicleRepo repo, VehicleMapper mapper, DriverService drvService) {
 		this.mapper = mapper;
 		this.repo = repo;
+		this.drvService = drvService;
 	}
 	
 	@Override
@@ -40,6 +42,9 @@ public class VehicleServiceImpl implements VehicleService {
 
 	@Override
 	public VehicleDto createNewVehicle(VehicleDto dto) {
+		System.out.println(dto.getDriverDto());
+		dto.setDriverDto(drvService.getDriver(dto.getDriverDto().getId()));
+		System.out.println(dto.getDriverDto());
 		Vehicle v = mapper.dtoToNewSource(dto);
 		return this.saveVehicle(v);
 	}

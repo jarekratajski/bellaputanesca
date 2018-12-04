@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import com.julian.bella.api.dto.DriverDto;
 import com.julian.bella.api.dto.EmployeeDto;
+import com.julian.bella.api.dto.UserDto;
+import com.julian.bella.api.dto.VehicleDto;
 import com.julian.bella.api.mapper.DriverMapper;
 import com.julian.bella.api.mapper.UserMapper;
 import com.julian.bella.domain.Address;
@@ -38,6 +40,8 @@ import com.julian.bella.repositories.ShipperRepo;
 import com.julian.bella.repositories.UserRepo;
 import com.julian.bella.repositories.VehicleRepo;
 import com.julian.bella.rodo.UserRole;
+import com.julian.bella.services.DriverService;
+import com.julian.bella.services.VehicleService;
 
 @Component
 public class InitialData implements CommandLineRunner {
@@ -57,12 +61,17 @@ public class InitialData implements CommandLineRunner {
 	RouteRepo routeRepo;
 
 	UserRepo userRepo;
+	
+	DriverService driverService;
+	
+	@Autowired
+	VehicleService vehicleService;
 
 	@Autowired
 	public InitialData(ClientRepo clientRepo, AddressRepo addressRepo, OrderRepo orderRepo,
 			OrderFinancesRepo orderFinancesRepo, ParcelRepo parcelRepo, LocationRepo locationRepo,
 			VehicleRepo vehicleRepo, DriverRepo driverRepo, ShipperRepo shipperRepo, RouteRepo routeRepo,
-			UserRepo userRepo) {
+			UserRepo userRepo, DriverService driverService) {
 
 		this.clientRepo = clientRepo;
 		this.addressRepo = addressRepo;
@@ -77,11 +86,16 @@ public class InitialData implements CommandLineRunner {
 		this.routeRepo = routeRepo;
 
 		this.userRepo = userRepo;
+		
+		this.driverService = driverService;
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
 		initData();
+		//debugVehicle2();
+		//debugDriver();
+		debugVehicle();
 	}
 
 	public void initData() {
@@ -216,7 +230,7 @@ public class InitialData implements CommandLineRunner {
 		log.info("Succesfully finished initializing data.");
 	}
 
-	public void debugVehicle() {
+	public void debugVehicle2() {
 		System.out.println(" ****************** W * A * T * ? ****************** ");
 		User user2 = new User().setEmail("driver@example.com").setLogin("user2").setUserRole(UserRole.DRIVER);
 		
@@ -246,6 +260,33 @@ public class InitialData implements CommandLineRunner {
 		
 		DriverDto drvDto = (DriverDto) e;
 		System.out.println(drvDto.getFirstName());
+	}
+	
+	public void debugDriver() {
+		UserDto userrr = new UserDto();
+		userrr.setEmail("email@wp.com").setLogin("cc");
+		
+		DriverDto dto = new DriverDto();
+		dto.setActive(true).setFirstName("aa").setLastName("bb").setPesel("90011816297").setUserDto(userrr);
+		
+		driverService.createNewDriver(dto);
+	}
+	
+	public void debugVehicle() {
+		UserDto userDto = new UserDto();
+		userDto.setEmail("aaaa@aa.com").setLogin("user1");
+		
+		DriverDto drvDto = new DriverDto();
+		drvDto.setActive(false).setFirstName("aa").setLastName("bb").setPesel("90011816297").setId(2L)
+				.setUserDto(userDto);
+		
+		driverService.createNewDriver(drvDto);
+		
+		VehicleDto v = new VehicleDto();
+		v.setCapacityKg(0).setMileageKm(0).setPurchaseDate(LocalDate.now()).setVin("1GCPKSE72CF207050")
+		.setDriverDto(drvDto);
+		vehicleService.createNewVehicle(v);
+		
 	}
 
 }

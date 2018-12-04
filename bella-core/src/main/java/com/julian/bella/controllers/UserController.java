@@ -37,6 +37,12 @@ public class UserController {
 		return userService.getUser(id);
 	}
 	
+	@GetMapping("/login={login}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public UserDto getUserByLogin(@PathVariable String login) {
+		return userService.getUserByLogin(login);
+	}
+	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public UserDto createNewUser(@RequestBody UserDto userDto) {

@@ -2,6 +2,8 @@ package com.julian.bella.services;
 
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.julian.bella.api.dto.RouteDto;
@@ -23,11 +25,13 @@ public class RouteServiceImpl implements RouteService {
 	}
 	
 	@Override
+	@Transactional
 	public RouteListDto getAllRoutes() {
 		return new RouteListDto(repo.findAll().stream().map(mapper::sourceToDto).collect(Collectors.toList()));
 	}
 
 	@Override
+	@Transactional
 	public RouteDto getRoute(Long id) {
 		return mapper.sourceToDto(repo.findById(id).orElseThrow(ResourceNotFoundException::new));
 	}

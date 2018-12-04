@@ -27,7 +27,8 @@ public class DriverMapper implements GenericMapper<Driver, DriverDto> {
 
 		DriverDto dto = new DriverDto();
 		
-		dto.setActive(source.isActive())
+		dto.setId(source.getId())
+			.setActive(source.isActive())
 			.setPesel(source.peselEncrypted)
 			.setFirstName(source.getFirstName())
 			.setLastName(source.getLastName())

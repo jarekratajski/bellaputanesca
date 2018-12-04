@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.julian.bella.api.dto.DriverDto;
 import com.julian.bella.api.dto.DriverListDto;
-import com.julian.bella.api.dto.UserDto;
 import com.julian.bella.api.mapper.DriverMapper;
 import com.julian.bella.domain.Driver;
 import com.julian.bella.exceptions.ResourceNotFoundException;
@@ -39,21 +38,14 @@ public class DriverServiceImpl implements DriverService {
 	}
 
 	@Override
-	public DriverDto saveDriver(Driver driver) {
+	public DriverDto saveDriver(Driver driver) {		
 		driver = driverRepo.save(driver);
 		return (DriverDto) driverMapper.sourceToDto(driver);
 	}
 
 	@Override
 	public DriverDto createNewDriver(DriverDto driverDto) {
-		Driver drv = (Driver) driverMapper.dtoToNewSource(driverDto);
-		return this.saveDriver(drv);
-	}
-
-	@Override
-	public DriverDto createNewDriverForUser(Long userId, DriverDto driverDto) {
-		UserDto userDto = userService.getUser(userId);
-		driverDto.setUserDto(userDto);
+		driverDto.setUserDto(userService.getUserByLogin(driverDto.getUserDto().getLogin()));
 		Driver drv = (Driver) driverMapper.dtoToNewSource(driverDto);
 		return this.saveDriver(drv);
 	}
@@ -64,5 +56,4 @@ public class DriverServiceImpl implements DriverService {
 		Driver newDrv = (Driver) driverMapper.dtoToUpdatedSource(oldDrv, driverDto);
 		return this.saveDriver(newDrv);
 	}
-
 }

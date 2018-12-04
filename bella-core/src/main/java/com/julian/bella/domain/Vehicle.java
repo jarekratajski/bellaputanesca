@@ -12,6 +12,7 @@ import com.julian.bella.validation.VinConstraint;
 
 
 @Entity
+
 public class Vehicle {
 
 	@Id

@@ -17,11 +17,13 @@ public class ShipperServiceImpl implements ShipperService {
 
 	ShipperRepo repo;
 	ShipperMapper mapper;
+	UserService userService;
 
 	@Autowired
-	public ShipperServiceImpl(ShipperRepo repo, ShipperMapper mapper) {
+	public ShipperServiceImpl(ShipperRepo repo, ShipperMapper mapper, UserService userService) {
 		this.repo = repo;
 		this.mapper = mapper;
+		this.userService = userService;
 	}
 
 	@Override
@@ -43,6 +45,7 @@ public class ShipperServiceImpl implements ShipperService {
 
 	@Override
 	public ShipperDto createNewShipper(ShipperDto dto) {
+		dto.setUserDto(userService.getUserByLogin(dto.getUserDto().getLogin()));
 		Shipper s = (Shipper) mapper.dtoToNewSource(dto);
 		return this.saveShipper(s);
 	}
