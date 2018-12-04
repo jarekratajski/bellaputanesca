@@ -95,7 +95,7 @@ public class InitialData implements CommandLineRunner {
 		initData();
 		//debugVehicle2();
 		//debugDriver();
-		debugVehicle();
+		//debugVehicle();
 	}
 
 	public void initData() {
